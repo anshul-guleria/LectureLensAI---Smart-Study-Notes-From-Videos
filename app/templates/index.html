@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block title %}LectureLensAI — Video to Smart Notes{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="fa-solid fa-bolt"></i> Powered by Groq · Whisper · LLaMA 3.3
+    </div>
+    <h1 class="hero-title">
+      Turn Any Lecture Into<br/>
+      <span class="gradient-text">Smart Study Notes</span>
+    </h1>
+    <p class="hero-subtitle">
+      Paste a YouTube URL or local file path. LectureLensAI transcribes the lecture,
+      generates structured notes, flashcards, and exports a beautiful PDF — in minutes.
+    </p>
+
+    <!-- Upload Card -->
+    <div class="upload-card" id="uploadCard">
+      <div class="input-group">
+        <i class="fa-solid fa-link input-icon"></i>
+        <input
+          type="text"
+          id="lectureInput"
+          class="lecture-input"
+          placeholder="https://youtube.com/watch?v=... or data/videos/lecture.mp4"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="upload-options">
+        <label class="demo-toggle" title="Use demo data — no LLM calls needed">
+          <div class="toggle-switch">
+            <input type="checkbox" id="demoMode" checked />
+            <span class="toggle-slider"></span>
+          </div>
+          <span class="toggle-label">
+            <i class="fa-solid fa-flask-vial"></i> Demo Mode
+            <span class="badge">No API needed</span>
+          </span>
+        </label>
+      </div>
+
+      <button class="process-btn" id="processBtn">
+        <i class="fa-solid fa-play"></i>
+        <span id="btnText">Process Lecture</span>
+      </button>
+
+      <p class="upload-hint">
+        <i class="fa-solid fa-circle-info"></i>
+        Demo Mode uses a pre-built ML lecture — toggle off to use real video with Groq API.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Feature Tiles -->
+<section class="features">
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fa-solid fa-microphone-lines"></i>
+      </div>
+      <h3>Whisper Transcription</h3>
+      <p>Groq's Whisper large-v3 transcribes lectures with near-human accuracy — even in Hinglish.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+      <h3>Structured Notes</h3>
+      <p>LLaMA 3.3 70B organises transcripts into titled topics with bullet points and TL;DR summaries.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fa-solid fa-cards-blank"></i>
+      </div>
+      <h3>Flashcards</h3>
+      <p>Auto-generated Q&amp;A flashcards with 3D flip animations — perfect for active recall practice.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fa-solid fa-file-pdf"></i>
+      </div>
+      <h3>PDF Export</h3>
+      <p>Download a clean, printer-ready PDF with all notes and flashcards organised by topic.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fa-solid fa-bolt-lightning"></i>
+      </div>
+      <h3>Cache-First</h3>
+      <p>Results are cached locally — re-processing the same video is instant, no API calls wasted.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fa-brands fa-youtube"></i>
+      </div>
+      <h3>YouTube Support</h3>
+      <p>Paste any YouTube URL. yt-dlp downloads and processes the lecture automatically.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script>
+  // Index page: handle Process button
+  document.getElementById("processBtn").addEventListener("click", async () => {
+    const input = document.getElementById("lectureInput").value.trim();
+    const demo  = document.getElementById("demoMode").checked;
+    const btn   = document.getElementById("processBtn");
+    const btnText = document.getElementById("btnText");
+
+    if (!input && !demo) {
+      showError("Please enter a YouTube URL or video path, or enable Demo Mode.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.classList.add("loading");
+    btnText.textContent = "Starting...";
+
+    try {
+      const res = await fetch("/api/process", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ input: input || "demo", demo })
+      });
+      const data = await res.json();
+      if (data.job_id) {
+        window.location.href = `/results/${data.job_id}`;
+      } else {
+        showError(data.error || "Failed to start processing.");
+        btn.disabled = false;
+        btn.classList.remove("loading");
+        btnText.textContent = "Process Lecture";
+      }
+    } catch (e) {
+      showError("Network error. Is the server running?");
+      btn.disabled = false;
+      btn.classList.remove("loading");
+      btnText.textContent = "Process Lecture";
+    }
+  });
+
+  // Allow Enter key
+  document.getElementById("lectureInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") document.getElementById("processBtn").click();
+  });
+
+  function showError(msg) {
+    let el = document.getElementById("errorMsg");
+    if (!el) {
+      el = document.createElement("p");
+      el.id = "errorMsg";
+      el.className = "error-msg";
+      document.getElementById("uploadCard").appendChild(el);
+    }
+    el.textContent = msg;
+    el.style.display = "block";
+    setTimeout(() => { el.style.display = "none"; }, 5000);
+  }
+</script>
+{% endblock %}

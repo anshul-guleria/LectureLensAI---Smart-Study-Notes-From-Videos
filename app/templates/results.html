@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% block title %}Results — LectureLensAI{% endblock %}
+
+{% block content %}
+
+<section class="results-page" id="resultsPage">
+
+  <!-- ── Stepper (shown while processing) ── -->
+  <div class="stepper-section" id="stepperSection">
+    <div class="stepper-header">
+      <h2 class="stepper-title">Processing your lecture <span class="dots-anim"></span></h2>
+      <p class="stepper-subtitle" id="currentStep">Initialising</p>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar" style="width:0%">
+        <div class="progress-glow"></div>
+      </div>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-item" id="step-1">
+        <div class="step-dot"><i class="fa-solid fa-video"></i></div>
+        <span>Load Video</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="step-2">
+        <div class="step-dot"><i class="fa-solid fa-microphone-lines"></i></div>
+        <span>Transcribe</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="step-3">
+        <div class="step-dot"><i class="fa-solid fa-book-open"></i></div>
+        <span>Notes</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="step-4">
+        <div class="step-dot"><i class="fa-solid fa-cards-blank"></i></div>
+        <span>Flashcards</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="step-5">
+        <div class="step-dot"><i class="fa-solid fa-file-pdf"></i></div>
+        <span>Export PDF</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Results (shown when done) ── -->
+  <div class="results-section hidden" id="resultsSection">
+
+    <!-- Results Header -->
+    <div class="results-header">
+      <div class="results-meta">
+        <div class="results-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+          <h2 class="results-title" id="lectureTitle">Lecture</h2>
+          <p class="results-subtitle">Notes, Flashcards &amp; PDF ready</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="video-toggle-btn" id="videoToggleBtn" onclick="toggleVideoPanel()">
+          <i class="fa-solid fa-play-circle"></i> Watch Lecture
+        </button>
+        <a href="/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> New Lecture</a>
+      </div>
+    </div>
+
+    <!-- ── Video Player Panel ── -->
+    <div class="video-panel hidden" id="videoPanel">
+      <div class="video-panel-header">
+        <span class="video-panel-title"><i class="fa-solid fa-film"></i> Lecture Video</span>
+        <div class="video-panel-meta">
+          <span class="ts-help-tip"><i class="fa-solid fa-hand-pointer"></i> Click any timestamp to jump to that moment</span>
+          <button class="video-close-btn" onclick="toggleVideoPanel()" title="Hide video">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <!-- YouTube player container -->
+      <div class="video-embed-wrap" id="ytPlayerWrap">
+        <div id="ytPlayer"></div>
+      </div>
+      <!-- HTML5 video (local files) -->
+      <div class="video-embed-wrap hidden" id="localVideoWrap">
+        <video id="localVideo" controls class="local-video">
+          Your browser does not support video.
+        </video>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" data-tab="notes" id="tabNotes">
+        <i class="fa-solid fa-book-open"></i> Notes
+        <span class="tab-count" id="notesCount">0</span>
+      </button>
+      <button class="tab-btn" data-tab="flashcards" id="tabFlashcards">
+        <i class="fa-solid fa-cards-blank"></i> Flashcards
+        <span class="tab-count" id="cardsCount">0</span>
+      </button>
+      <button class="tab-btn" data-tab="export" id="tabExport">
+        <i class="fa-solid fa-file-pdf"></i> Export
+      </button>
+      <button class="tab-btn" data-tab="chat" id="tabChat">
+        <i class="fa-solid fa-comments"></i> Ask AI
+      </button>
+    </div>
+
+    <!-- Tab Panels -->
+    <div class="tab-panels">
+
+      <!-- Notes Panel -->
+      <div class="tab-panel active" id="panel-notes">
+        <div class="notes-grid" id="notesGrid"></div>
+      </div>
+
+      <!-- Flashcards Panel -->
+      <div class="tab-panel" id="panel-flashcards">
+        <div class="cards-toolbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="cardSearch" placeholder="Search flashcards..." />
+          </div>
+          <p class="cards-hint"><i class="fa-solid fa-hand-pointer"></i> Click card to flip</p>
+        </div>
+        <div class="cards-grid" id="cardsGrid"></div>
+      </div>
+
+      <!-- Export Panel -->
+      <div class="tab-panel" id="panel-export">
+        <div class="export-card">
+          <div class="export-icon"><i class="fa-solid fa-file-pdf"></i></div>
+          <h3>Your Study PDF is Ready!</h3>
+          <p>Contains all notes and flashcards formatted for printing or digital study.</p>
+          <a class="download-btn" id="downloadBtn" href="#" target="_blank">
+            <i class="fa-solid fa-download"></i> Download PDF
+          </a>
+          <div class="export-stats" id="exportStats"></div>
+        </div>
+      </div>
+
+      <!-- Chat Panel -->
+      <div class="tab-panel" id="panel-chat">
+        <div class="chat-container">
+          <div class="chat-header">
+            <i class="fa-solid fa-robot"></i>
+            <div>
+              <h3>Ask about this lecture</h3>
+              <p>Questions answered with timestamps — click to jump to that moment in the video</p>
+            </div>
+          </div>
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg chat-msg--ai">
+              <div class="chat-bubble">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Hi! Ask me anything about this lecture. I'll give you a timestamped answer you can click to jump to.
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="chatInput"
+                   placeholder="Ask a question about this lecture..."
+                   onkeydown="if(event.key==='Enter') sendChatMessage()" />
+            <button class="chat-send-btn" onclick="sendChatMessage()" id="chatSendBtn">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .tab-panels -->
+  </div><!-- .results-section -->
+
+  <!-- Error Section -->
+  <div class="error-section hidden" id="errorSection">
+    <div class="error-card">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <h3>Processing Failed</h3>
+      <p id="errorMessage">An unexpected error occurred.</p>
+      <a href="/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Try Again</a>
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script>
+  const JOB_ID = "{{ job_id }}";
+  initResultsPage(JOB_ID);
+</script>
+{% endblock %}

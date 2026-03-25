@@ -1,0 +1,62 @@
+[
+  {
+    "question": "What are the three main types of Machine Learning?",
+    "answer": "Supervised Learning, Unsupervised Learning, and Reinforcement Learning.",
+    "timestamp": 14.2,
+    "source": "spoken"
+  },
+  {
+    "question": "What is supervised learning?",
+    "answer": "A type of ML where the model is trained on labeled data — each example has an input and a known correct output.",
+    "timestamp": 22.8,
+    "source": "spoken"
+  },
+  {
+    "question": "Name four common supervised learning algorithms.",
+    "answer": "Linear Regression, Logistic Regression, Decision Trees, and Support Vector Machines (SVMs).",
+    "timestamp": 31.5,
+    "source": "spoken"
+  },
+  {
+    "question": "What is K-Means Clustering used for?",
+    "answer": "It is an unsupervised learning algorithm used to group unlabeled data into K distinct clusters.",
+    "timestamp": 50.6,
+    "source": "spoken"
+  },
+  {
+    "question": "What is a loss function?",
+    "answer": "A mathematical function that measures how wrong a model's predictions are compared to the true values.",
+    "timestamp": 81.7,
+    "source": "spoken"
+  },
+  {
+    "question": "When do you use Mean Squared Error (MSE)?",
+    "answer": "MSE is used as the loss function for regression problems — it measures average squared difference between predicted and actual values.",
+    "timestamp": 93.2,
+    "source": "spoken"
+  },
+  {
+    "question": "What is Gradient Descent?",
+    "answer": "An optimisation algorithm that minimises the loss function by iteratively updating model weights in the direction of steepest descent.",
+    "timestamp": 115.8,
+    "source": "spoken"
+  },
+  {
+    "question": "What is overfitting?",
+    "answer": "When a model performs well on training data but poorly on new data — it memorises rather than generalises.",
+    "timestamp": 140.0,
+    "source": "spoken"
+  },
+  {
+    "question": "Name two techniques to prevent overfitting.",
+    "answer": "L1/L2 Regularisation (penalises large weights) and Dropout (randomly disables neurons during training).",
+    "timestamp": 153.5,
+    "source": "spoken"
+  },
+  {
+    "question": "Explain the bias-variance tradeoff.",
+    "answer": "High bias → underfitting (model too simple). High variance → overfitting (model too complex). The goal is to find a balance that generalises well.",
+    "timestamp": 166.2,
+    "source": "spoken"
+  }
+]

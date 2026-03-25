@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}LectureLens{% endblock %}</title>
+  <meta name="description" content="{% block description %}Turn any lecture video into smart notes, flashcards, and a study PDF with AI.{% endblock %}" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>LectureLens<span class="logo-ai">AI</span></span>
+    </a>
+    <div class="nav-actions">
+      <a href="/" class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}">
+        <i class="fa-solid fa-house"></i> Home
+      </a>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Built with <i class="fa-solid fa-heart" style="color:var(--accent)"></i> using Flask &amp; Groq AI &nbsp;·&nbsp; LectureLensAI</p>
+  </footer>
+
+  <!-- Base JS -->
+  <script>
+    // Theme toggle
+    const root = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    root.setAttribute("data-theme", savedTheme);
+    themeIcon.className = savedTheme === "dark" ? "fa-solid fa-moon" : "fa-solid fa-sun";
+
+    toggleBtn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      themeIcon.className = next === "dark" ? "fa-solid fa-moon" : "fa-solid fa-sun";
+    });
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+[
+  {"start": 0.0,   "end": 6.4,   "text": "Welcome everyone to today's lecture on Introduction to Machine Learning.", "language": "en"},
+  {"start": 6.4,   "end": 14.2,  "text": "Machine Learning is a subset of Artificial Intelligence where systems learn from data without being explicitly programmed.", "language": "en"},
+  {"start": 14.2,  "end": 22.8,  "text": "There are three main types: supervised learning, unsupervised learning, and reinforcement learning.", "language": "en"},
+  {"start": 22.8,  "end": 31.5,  "text": "In supervised learning, we train models on labeled data — meaning each example has an input and a known correct output.", "language": "en"},
+  {"start": 31.5,  "end": 40.1,  "text": "Common supervised learning algorithms include Linear Regression, Logistic Regression, Decision Trees, and Support Vector Machines.", "language": "en"},
+  {"start": 40.1,  "end": 50.6,  "text": "Unsupervised learning deals with unlabeled data. The model tries to find hidden patterns or groupings by itself.", "language": "en"},
+  {"start": 50.6,  "end": 60.3,  "text": "K-Means Clustering and Principal Component Analysis, or PCA, are popular unsupervised learning techniques.", "language": "en"},
+  {"start": 60.3,  "end": 71.0,  "text": "Reinforcement learning is inspired by behavioural psychology. An agent learns by interacting with an environment and receiving rewards or penalties.", "language": "en"},
+  {"start": 71.0,  "end": 81.7,  "text": "Now let us talk about the concept of a model. A model is a mathematical function that takes inputs and produces predictions.", "language": "en"},
+  {"start": 81.7,  "end": 93.2,  "text": "The process of adjusting model parameters to minimise error is called training. We use a loss function to measure how wrong our predictions are.", "language": "en"},
+  {"start": 93.2,  "end": 104.5, "text": "Mean Squared Error, or MSE, is the most common loss function for regression problems.", "language": "en"},
+  {"start": 104.5, "end": 115.8, "text": "For classification problems, we typically use Cross-Entropy Loss, also known as Log Loss.", "language": "en"},
+  {"start": 115.8, "end": 127.4, "text": "Gradient Descent is the optimisation algorithm used to minimise the loss function. It iteratively updates weights in the direction of steepest descent.", "language": "en"},
+  {"start": 127.4, "end": 140.0, "text": "The learning rate is a hyperparameter that controls how large each update step is. Too high and the model diverges; too low and training is very slow.", "language": "en"},
+  {"start": 140.0, "end": 153.5, "text": "Overfitting occurs when a model performs well on training data but poorly on new, unseen data. It memorises instead of generalising.", "language": "en"},
+  {"start": 153.5, "end": 166.2, "text": "Techniques to prevent overfitting include Regularisation — L1 and L2 — Dropout for neural networks, and cross-validation.", "language": "en"},
+  {"start": 166.2, "end": 179.8, "text": "The bias-variance tradeoff is a fundamental concept. High bias leads to underfitting; high variance leads to overfitting.", "language": "en"},
+  {"start": 179.8, "end": 193.0, "text": "A validation set is used to tune hyperparameters, while the test set gives the final unbiased evaluation of model performance.", "language": "en"},
+  {"start": 193.0, "end": 206.5, "text": "Feature engineering is the process of using domain knowledge to select and transform raw data into features that improve model performance.", "language": "en"},
+  {"start": 206.5, "end": 220.0, "text": "To summarise: Machine Learning enables computers to learn from data. Choosing the right algorithm, loss function, and regularisation strategy is key to building good models.", "language": "en"}
+]

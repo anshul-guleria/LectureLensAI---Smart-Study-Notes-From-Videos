@@ -1,0 +1,55 @@
+[
+  {
+    "timestamp": 0.0,
+    "title": "What is Machine Learning?",
+    "bullets": [
+      "ML is a subset of AI where systems learn from data without explicit programming",
+      "Three main paradigms: Supervised, Unsupervised, and Reinforcement Learning",
+      "Goal: enable computers to generalise from examples rather than following hand-coded rules"
+    ],
+    "tldr": "ML lets computers learn patterns from data automatically."
+  },
+  {
+    "timestamp": 22.8,
+    "title": "Supervised Learning",
+    "bullets": [
+      "Trains on labeled data — each sample has an input X and a target output Y",
+      "Key algorithms: Linear Regression, Logistic Regression, Decision Trees, SVMs",
+      "Used for tasks like spam detection, image classification, house price prediction"
+    ],
+    "tldr": "Supervised learning maps inputs to known outputs using labeled examples."
+  },
+  {
+    "timestamp": 40.1,
+    "title": "Unsupervised & Reinforcement Learning",
+    "bullets": [
+      "Unsupervised: finds hidden structure in unlabeled data (e.g. K-Means, PCA)",
+      "Reinforcement Learning: agent learns via trial-and-error with reward/penalty signals",
+      "RL is behind game-playing AI (AlphaGo) and robotics"
+    ],
+    "tldr": "Unsupervised finds patterns; RL learns through interaction and feedback."
+  },
+  {
+    "timestamp": 81.7,
+    "title": "Training: Loss Functions & Optimisation",
+    "bullets": [
+      "A model is a mathematical function mapping inputs → predictions",
+      "Loss function measures prediction error — MSE for regression, Cross-Entropy for classification",
+      "Gradient Descent minimises loss by iteratively updating weights",
+      "Learning rate controls update step size — critical hyperparameter"
+    ],
+    "tldr": "Training adjusts model weights using gradient descent to minimise a loss function."
+  },
+  {
+    "timestamp": 140.0,
+    "title": "Overfitting, Underfitting & the Bias-Variance Tradeoff",
+    "bullets": [
+      "Overfitting: great on train data, poor on new data (high variance)",
+      "Underfitting: model too simple to capture patterns (high bias)",
+      "Prevention: L1/L2 Regularisation, Dropout, cross-validation",
+      "Always split data into train / validation / test sets",
+      "Feature engineering transforms raw data into informative inputs"
+    ],
+    "tldr": "Balance bias and variance; use regularisation and proper data splits to build generalisable models."
+  }
+]

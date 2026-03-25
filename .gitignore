@@ -1,0 +1,11 @@
+.env
+.venv
+__pycache__/
+
+data/audio
+data/audio_dl
+data/exports
+data/flashcards
+data/jobs
+data/notes
+
