@@ -9,6 +9,17 @@ It processes raw video input into:
 * 💬 Context-aware Q&A chatbot with timestamps
 
 ---
+## 📸 Demo
+
+| Feature | Preview |
+|--------|--------|
+| Home | ![](project_outputs/image1.png) |
+| Processing | ![](project_outputs/image2.png) |
+| Notes | ![](project_outputs/image3.png) |
+| Flashcards | ![](project_outputs/image4.png) |
+| Chatbot | ![](project_outputs/image5.png) |
+| Output | ![](project_outputs/image6.png) |
+---
 
 ## 🚀 Key Features
 
