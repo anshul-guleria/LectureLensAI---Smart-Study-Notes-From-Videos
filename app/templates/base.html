@@ -42,7 +42,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>Built with <i class="fa-solid fa-heart" style="color:var(--accent)"></i> using Flask &amp; Groq AI &nbsp;·&nbsp; LectureLensAI</p>
+    <p>Built with <i class="fa-solid fa-heart" style="color:var(--accent)"></i> by Anshul Guleria &nbsp;·&nbsp; LectureLensAI</p>
   </footer>
 
   <!-- Base JS -->
@@ -52,7 +52,7 @@
     const toggleBtn = document.getElementById("themeToggle");
     const themeIcon = document.getElementById("themeIcon");
 
-    const savedTheme = localStorage.getItem("theme") || "dark";
+    const savedTheme = localStorage.getItem("theme") || "light";
     root.setAttribute("data-theme", savedTheme);
     themeIcon.className = savedTheme === "dark" ? "fa-solid fa-moon" : "fa-solid fa-sun";
 

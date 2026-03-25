@@ -25,7 +25,7 @@ JOBS: Dict[str, Dict[str, Any]] = {}
 JOBS_DIR = Path("data/jobs")
 
 # Demo YouTube video (ML lecture)
-DEMO_VIDEO_ID = "p4pHsuEf4Ms"
+DEMO_VIDEO_ID = "ukzFI9rgwfU"
 DEMO_VIDEO_URL = f"https://www.youtube.com/embed/{DEMO_VIDEO_ID}?enablejsapi=1"
 
 
